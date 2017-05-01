@@ -31,9 +31,9 @@ import org.opensim.modeling.*
 scaleTool = ScaleTool(Path.OpensimGenericScale);
 
 trialForScale = [Path.TRCpath 'static.trc']; %Eventually Static trial
-ScaledModelFile=[Path.exportPath Alias.sujet{isujet} 'StandfordVAscaled.osim'];
-ScaleSetFile=[Path.exportPath Alias.sujet{isujet} 'StandfordVAScaleSet.xml'];
-ScaleModelNewMKRFiler=[Path.exportPath Alias.sujet{isujet} 'StandfordVAscaledNewMKR.osim'];
+ScaledModelFile=[Path.exportPath Alias.sujet{isujet} 'StandfordVA2scaled.osim'];
+ScaleSetFile=[Path.exportPath Alias.sujet{isujet} 'StandfordVA2ScaleSet.xml'];
+ScaleModelNewMKRFiler=[Path.exportPath Alias.sujet{isujet} 'StandfordVAscaled2NewMKR.osim'];
 scaleTool.setName([Alias.sujet{isujet} 'StandfordVAscaled']);
 
 scaleTool.getGenericModelMaker().setModelFileName(Path.OpensimGenericModel);

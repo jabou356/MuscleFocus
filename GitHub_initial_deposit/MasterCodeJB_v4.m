@@ -49,7 +49,7 @@ writeopensim = 1;
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet = 34:-1:1%length(Alias.sujet) : -1 : 1
+for isujet = length(Alias.sujet)-1 : -1 : 1
     
     disp(['Traitement de ' cell2mat(Alias.sujet(isujet)) ' (' num2str(length(Alias.sujet) - isujet+1) ' sur ' num2str(length(Alias.sujet)) ')'])
 %     %% Chemin des fichiers
@@ -93,7 +93,7 @@ for isujet = 34:-1:1%length(Alias.sujet) : -1 : 1
         
 SubjectPath
 
-Path.IKpath=[Path.exportPath,'IKOSIM\StandFordVA\'];
+Path.IKpath=[Path.exportPath,'IKOSIM\StandFordVA2\'];
     Path.IKresultpath=[Path.IKpath,'result\'];
     Path.IKsetuppath=[Path.IKpath,'setup\'];
     if isdir(Path.IKpath)==0

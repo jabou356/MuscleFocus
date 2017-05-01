@@ -31,7 +31,7 @@ import org.opensim.modeling.*
  ikTool = InverseKinematicsTool(Path.OpensimGenericIK);
 
 % Load the model and initialize
-model = Model([Path.exportPath Alias.sujet{isujet} 'StandfordVAscaled.osim']);
+model = Model([Path.exportPath Alias.sujet{isujet} 'StandfordVA2scaled.osim']);
 model.initSystem();
 
 % Tell Tool to use the loaded model
