@@ -74,12 +74,12 @@ end
     spmEMG = isintraJB(spmEMG); % NaN on intra muscles for participants without intra
 
     for imuscle = 13:-1:1
-    spm.comp = spm.emg(spm.muscle == imuscle,:); % by muscle
+    spmEMG.comp = spmEMG.emg(:,spmEMG.imuscle == imuscle); % by muscle
     
     % replace each NaN columns (muscle not recorded) by the means of other participants (same sex)
-    spm.comp=clean_data(spm.comp');
+    spmEMG.comp=clean_data(spmEMG.comp);
     
-    spm.emg(spm.muscle == imuscle,:)=spm.comp';
+    spmEMG.emg(:,spmEMG.imuscle == imuscle)=spmEMG.comp;
 %     % NaN remover
 %     [spm,deleted(imuscle)] = NaN_remover(spm,imuscle);
 %     
@@ -89,12 +89,12 @@ end
     end
 
     for imuscle = 13:-1:1
-    spm.comp = spm.emg(spm.muscle == imuscle,:); % by muscle
+    spmEMG.comp = spmEMG.emg(:,spmEMG.imuscle == imuscle); % by muscle
     
     % replace each NaN columns (muscle not recorded) by the means of other participants (same sex)
-    spm.comp=clean_dataSmallEMG(spm.comp');
+    spmEMG.comp=clean_dataSmallEMG(spmEMG.comp);
     
-    spm.emg(spm.muscle == imuscle,:)=spm.comp';
+    spmEMG.emg(:,spmEMG.imuscle == imuscle)=spmEMG.comp;
 %     % NaN remover
 %     [spm,deleted(imuscle)] = NaN_remover(spm,imuscle);
 %     
