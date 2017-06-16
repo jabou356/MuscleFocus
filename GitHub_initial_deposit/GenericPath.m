@@ -17,10 +17,6 @@ if isempty(strfind(path, [Path.ServerAddressE, '\Librairies\S2M_Lib\']))
     S2MLibPicker;
 end
 
-% Fonctions locales
-addpath(genpath([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\Codes\Functions_Matlab']));
-addpath([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\Codes\Kinematics\Cinematique\functions']);
-addpath([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\Codes\Jason']);
 
 %% Setup common paths
 Path.OpensimSetupJB=[Path.ServerAddressE '\Projet_IRSST_LeverCaisse\Jason\OpenSimSetUpFiles\'];

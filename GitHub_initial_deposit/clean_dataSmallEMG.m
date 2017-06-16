@@ -1,4 +1,4 @@
-function data = clean_data(data)
+function [pind,data] = clean_dataSmallEMG(data)
 % Clean_data allows to select data from the plot and replace it (by NaN, 0 or [])
 % Input data should be nframe * observations
 
@@ -38,7 +38,7 @@ S.clo = uicontrol('style','push',...
         
         [pind] = selectdata('selectionmode','Brush');
         
-        pind = pind(end:-1:1);
+        pind = pind(end:-1:1)';
                 
         data(:,pind) = NaN;
     end

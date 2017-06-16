@@ -17,7 +17,7 @@ end
 
 
 %% Switch
-comparaison =  '%';  % '=' (absolute) ou '%' (relative)
+comparaison =  '=';  % '=' (absolute) ou '%' (relative)
 correctbonf =   1;   % 0 ou 1
 useoldemg   =   0;   % 0 ou 1
 export      =   1;   % o ou 1
