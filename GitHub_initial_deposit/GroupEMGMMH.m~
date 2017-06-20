@@ -1,4 +1,4 @@
-clear; close all; clc
+clear variables; close all; clc
 
 %% Conditions tested for men and women and muscle names
 
@@ -9,9 +9,7 @@ CondH={'H6H1', 'H6H2', 'H6H3', 'H6H4', 'H6H5', 'H6H6',...
 CondF={'F6H1', 'F6H2', 'F6H3', 'F6H4', 'F6H5', 'F6H6',...
     'F12H1', 'F12H2', 'F12H3', 'F12H4', 'F12H5', 'F12H6'};
 
-Muscles={'DeltA', 'DeltM', 'DeltP', 'BB', 'TB', 'UpTrap',...
-    'LowTrap', 'SerrAnt', 'Supra', 'Infra', 'SubScap',...
-    'Pect', 'Lat'};
+Muscles={'DeltA', 'DeltM', 'DeltP', 'BB', 'TB', 'UpTrap',
     
 %% load functions
 
@@ -23,7 +21,7 @@ GenericPath
 
 %% Path
 
-alias.matname = dir([Path.RBIEMG '*mat']);
+alias.matname = dir([path.Datapath '*mat']);
 
 kh=1;
 kf=1;
@@ -32,7 +30,7 @@ EMG.Fname=[];
 
 for isubject= 1: length(alias.matname)
 
-load([Path.RBIEMG, alias.matname(isubject).name]);
+load([Path.RBIEMG, alias.matname(isubject)]);
 
 if data(1).sex == 1 %if man
     
@@ -48,15 +46,12 @@ elseif data(1).sex == 2 % if woman
         kf=kf+1;
     end
 end
-clear data
 end
 
 kh=1;
 kf=1;
 
 for isubject= 1: length(alias.matname)
-    disp(num2str(isubject))
-load([Path.RBIEMG, alias.matname(isubject).name]);
     
     if data(1).sex == 1 %if man
         
@@ -67,15 +62,14 @@ load([Path.RBIEMG, alias.matname(isubject).name]);
             
             for itrial= 1: length(trials)
                 
-                for imuscles= 1:length(Muscles)
-                    EMG.(Muscles{imuscles}).(CondH{icond})(:,itrial,kh)=data(trials(itrial)).emg(:,imuscles);
+                for imuscles= 1:length(muscles)
+                    EMG.(Muscles{imuscles}).(CondH{icond})(:,:,itrial)=data(trials(itrial)).emg(:,imuscles);
                 end
                 
             end
             
         end
-        kh=kh+1;
-        
+       kf 
     elseif data(1).sex == 2 %if woman
         
         for icond = 1 : length(CondF)
@@ -85,18 +79,15 @@ load([Path.RBIEMG, alias.matname(isubject).name]);
             
             for itrial= 1: length(trials)
                 
-                for imuscles= 1:length(Muscles)
-                    EMG.(Muscles{imuscles}).(CondF{icond})(:,itrial,kf)=data(trials(itrial)).emg(:,imuscles);
+                for imuscles= 1:length(muscles)
+                    EMG.(Muscles{imuscles}).(CondF{icond})(:,:,itrial)=data(trials(itrial)).emg(:,imuscles);
                 end
                 
             end
             
         end
-        kf=kf+1;
-        
     end
-    
-    clear data
 end
-
-
+        
+        
+        
