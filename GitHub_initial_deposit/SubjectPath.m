@@ -4,7 +4,7 @@ if Path.machinetype == 1 %% If PC (backslashes)
     
     % Dossier du sujet
     Path.DirModels  = [Path.ServerAddressF '\Data\Shoulder\Lib\' Alias.sujet{isujet} 'd\Model_2\'];
-    % Dossier du modèle pour le sujet
+    % Dossier du modï¿½le pour le sujet
     Path.pathModel  = [Path.DirModels 'Model.s2mMod'];
     % Dossier des data
     Path.importPath = [Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\cinematique\' Alias.sujet{isujet} '.mat'];
@@ -44,7 +44,7 @@ elseif Path.machinetype == 2 % If MAC forward slashes
     
     % Dossier du sujet
     Path.DirModels  = [Path.ServerAddressF '/Data/Shoulder/Lib/' Alias.sujet{isujet} 'd/Model_2/'];
-    % Dossier du modèle pour le sujet
+    % Dossier du modï¿½le pour le sujet
     Path.pathModel  = [Path.DirModels 'Model.s2mMod'];
     % Dossier des data
     Path.importPath = [Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/cinematique/' Alias.sujet{isujet} '.mat'];

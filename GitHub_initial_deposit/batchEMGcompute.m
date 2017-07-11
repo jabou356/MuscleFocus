@@ -2,17 +2,17 @@ clear variables; close all; clc
 %% load functions
 
 GenericPath
-if isempty(strfind(path, [Path.ServerAddressE '\Librairies\S2M_Lib\']))
-	% S2M library
-	loadS2MLib;
-end
+% if isempty(strfind(path, [Path.ServerAddressE '\Librairies\S2M_Lib\']))
+% 	% S2M library
+% 	loadS2MLib;
+% end
 
 %% Path
 path.Datapath = [Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\EMG\'];
 path.exportpath = [Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\MuscleFocus\GroupData\EMG\'];
 alias.matname = dir([path.Datapath '*mat']);
 
-for imat = length(alias.matname)-13 : -1 : length(alias.matname)-20
+for imat = length(alias.matname)-41 : -1 : 1
 	% load emg data
 	load([path.Datapath alias.matname(imat).name]);
 	
