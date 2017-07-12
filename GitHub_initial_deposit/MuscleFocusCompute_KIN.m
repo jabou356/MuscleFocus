@@ -77,16 +77,20 @@ for isujet=length(Alias.sujet):-1:1
 				for i=trouble
 				
 				if i==1	
-				LineOfAction.data=[LineOfAction.data; dlmread(pathmd{i},'\t',sizemd(i)+12,0)];
+				temp=importdata(pathmd{i},'\t',sizemd(i)+12);	
+				LineOfAction.data=[LineOfAction.data; temp.data];
 				sizemd(i)=size(LineOfAction.data,1);
 				elseif i==2
-					MuscleAttachment.data=[MuscleAttachment.data; dlmread(pathmd{i},'\t',sizemd(i)+12,0)];
+				temp=importdata(pathmd{i},'\t',sizemd(i)+12);	
+				MuscleAttachment.data=[MuscleAttachment.data; temp.data];
 				sizemd(i)=size(MuscleAttachment.data,1);
 				elseif i==3
-					MuscleAttachmentAnato.data=[MuscleAttachmentAnato.data; dlmread(pathmd{i},'\t',sizemd(i)+12,0)];
+				temp=importdata(pathmd{i},'\t',sizemd(i)+12);
+				MuscleAttachmentAnato.data=[MuscleAttachmentAnato.data; tenp.data];
 				sizemd(i)=size(MuscleAttachmentAnato.data,1);
 				elseif i==4
-					LineOfActionAnato.data=[LineOfActionAnato.data; dlmread(pathmd{i},'\t',sizemd(i)+12,0)];
+				temp=importdata(pathmd{i},'\t',sizemd(i)+12);
+				LineOfActionAnato.data=[LineOfActionAnato.data; temp.data];
 				sizemd(i)=size(LineOfActionAnato.data,1);
 				end
 				
