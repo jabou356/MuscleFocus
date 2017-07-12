@@ -27,7 +27,7 @@ GenericPath
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet=length(Alias.sujet):-1:1
+for isujet=32:-1:1 %length(Alias.sujet):-1:1
     SubjectPath
     name=Alias.sujet{isujet};
     name=name(end-3:end);
@@ -77,17 +77,25 @@ for isujet=length(Alias.sujet):-1:1
 				for i=trouble
 				
 				if i==1	
-				temp=importdata(pathmd{i},'\t',sizemd(i)+12);	
-				LineOfAction.data=[LineOfAction.data; temp.data];
-				sizemd(i)=size(LineOfAction.data,1);
+				temp=importdata(pathmd{i},'\t',sizemd(i)+12);
+					if size(temp.data,2)==size(LineOfAction.data,2)
+					LineOfAction.data=[LineOfAction.data; temp.data];
+					sizemd(i)=size(LineOfAction.data,1);
+					else
+					LineOfAction.data=[LineOfAction.data; [temp.data(1,:),repmat(nan,1,size(LineOfAction.data,2)-size(temp.data,2))]];
+					sizemd(i)=size(LineOfAction.data,1);
+					end
+									
 				elseif i==2
 				temp=importdata(pathmd{i},'\t',sizemd(i)+12);	
 				MuscleAttachment.data=[MuscleAttachment.data; temp.data];
 				sizemd(i)=size(MuscleAttachment.data,1);
+				
 				elseif i==3
 				temp=importdata(pathmd{i},'\t',sizemd(i)+12);
 				MuscleAttachmentAnato.data=[MuscleAttachmentAnato.data; tenp.data];
 				sizemd(i)=size(MuscleAttachmentAnato.data,1);
+				
 				elseif i==4
 				temp=importdata(pathmd{i},'\t',sizemd(i)+12);
 				LineOfActionAnato.data=[LineOfActionAnato.data; temp.data];
@@ -154,8 +162,8 @@ for isujet=length(Alias.sujet):-1:1
             end
             
             %% Interpolate the moment arms to param.nbframe from onset and offset of force on handle
-            startKine = floor(data(itrial).start);
-            stopKine = floor(data(itrial).end);
+            startKine = round(data(itrial).start)-1;
+            stopKine = round(data(itrial).end)-1;
             MVTdurationKine = stopKine-startKine;
             x = 1:MVTdurationKine+1; y = data(itrial).d(startKine:stopKine,:,:);
             data(itrial).dInt(:,:,:) = interp1(x,y,1:(length(x)-1)/(param.nbframe-1):length(x));
