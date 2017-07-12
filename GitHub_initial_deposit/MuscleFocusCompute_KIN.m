@@ -58,6 +58,45 @@ for isujet=length(Alias.sujet):-1:1
             MuscleAttachmentAnato = importdata([Path.MDpath '\Anato\result\' data(itrial).trialname '_MuscleForceDirection_attachments.sto']);
             LineOfActionAnato = importdata([Path.MDpath '\Anato\result\' data(itrial).trialname '_MuscleForceDirection_vectors.sto']);
             
+			
+		% Manage an exception where a -1.#IND00 string is included in the .sto files (I don't know why) and interupt the importdata function
+
+			pathmd={[Path.MDpath '\result\' data(itrial).trialname '_MuscleForceDirection_vectors.sto'],...
+				[Path.MDpath '\result\' data(itrial).trialname '_MuscleForceDirection_attachments.sto'],...
+				[Path.MDpath '\Anato\result\' data(itrial).trialname '_MuscleForceDirection_attachments.sto'],...
+				[Path.MDpath '\Anato\result\' data(itrial).trialname '_MuscleForceDirection_vectors.sto']};
+			
+			variablemd={'LineOfAction', 'MuscleAttachment', 'MuscleAttachmentAnato','LineOfActionAnato'};
+
+			sizemd=[size(LineOfAction.data,1),size(MuscleAttachment.data,1),size(MuscleAttachmentAnato.data,1),size(LineOfActionAnato.data,1)];
+				
+			while max(sizemd)~=min(sizemd)
+				
+				trouble=find(sizemd~=max(sizemd));
+				
+				for i=trouble
+				
+				if i==1	
+				LineOfAction.data=[LineOfAction.data; dlmread(pathmd{i},'\t',sizemd(i)+12,0)];
+				sizemd(i)=size(LineOfAction.data,1);
+				elseif i==2
+					MuscleAttachment.data=[MuscleAttachment.data; dlmread(pathmd{i},'\t',sizemd(i)+12,0)];
+				sizemd(i)=size(MuscleAttachment.data,1);
+				elseif i==3
+					MuscleAttachmentAnato.data=[MuscleAttachmentAnato.data; dlmread(pathmd{i},'\t',sizemd(i)+12,0)];
+				sizemd(i)=size(MuscleAttachmentAnato.data,1);
+				elseif i==4
+					LineOfActionAnato.data=[LineOfActionAnato.data; dlmread(pathmd{i},'\t',sizemd(i)+12,0)];
+				sizemd(i)=size(LineOfActionAnato.data,1);
+				end
+				
+				end
+				
+			end
+				
+				
+				
+
             %% Compute leverArm
             for imuscle = length(Muscle):-1:1 % for each muscle
                 
