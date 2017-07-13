@@ -15,7 +15,7 @@ GenericPath
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet=32:-1:1
+for isujet=[length(Alias.sujet):-1:34, 32:-1:1]
     SubjectPath
     
     Path.rbiEMG=[Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\rbiEMG\' Alias.sujet{isujet} '.mat'];
@@ -40,14 +40,14 @@ for isujet=32:-1:1
     end
     
     temp=sum(Data(itrial).numerator,3);
-    NUMERATOR=sqrt(sum(temp.^2,2));
-    DENOMINATOR=sum(Data(itrial).denominator,2);
-    Data(itrial).MFallmuscles=NUMERATOR./DENOMINATOR;
+    Data(itrial).NUMERATORallmuscles=sqrt(sum(temp.^2,2));
+    Data(itrial).DENOMINATORallmuscles=sum(Data(itrial).denominator,2);
+    Data(itrial).MFallmuscles=Data(itrial).NUMERATORallmuscles./Data(itrial).DENOMINATORallmuscles;
     
     temp=sum(Data(itrial).numerator(:,:,[1,2,3,7,8]),3);
-    NUMERATOR=sqrt(sum(temp.^2,2));
-    DENOMINATOR=sum(Data(itrial).denominator(:,[1,2,3,7,8]),2);
-    Data(itrial).MFBlache=NUMERATOR./DENOMINATOR;
+    Data(itrial).NUMERATORBlache=sqrt(sum(temp.^2,2));
+    Data(itrial).DENOMINATORBlache=sum(Data(itrial).denominator(:,[1,2,3,7,8]),2);
+    Data(itrial).MFBlache=Data(itrial).NUMERATORBlache./Data(itrial).DENOMINATORBlache;
     Data(itrial).sexe=kindata(itrial).sexe;
     Data(itrial).trialname=kindata(itrial).trialname;
     end

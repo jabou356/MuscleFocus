@@ -9,7 +9,7 @@ CondH={'H6H1', 'H6H2', 'H6H3', 'H6H4', 'H6H5', 'H6H6',...
 CondF={'F6H1', 'F6H2', 'F6H3', 'F6H4', 'F6H5', 'F6H6',...
     'F12H1', 'F12H2', 'F12H3', 'F12H4', 'F12H5', 'F12H6'};
 
-Variables={'Denominator', 'MFBlache', 'MFallmuscles'};
+Variables={'DENOMINATORallmuscles','DENOMINATORBlache','NUMERATORallmuscles','NUMERATORBlache', 'MFBlache', 'MFallmuscles'};
     
 %% load functions
 
