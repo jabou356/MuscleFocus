@@ -21,7 +21,7 @@ for isujet=32:-1:1
     Path.rbiEMG=[Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\rbiEMG\' Alias.sujet{isujet} '.mat'];
     load(Path.rbiEMG)
     emgdata=data;
-	emgdata(1).mfEMGchan=([3,2,1,10,9,11,12,13]);
+	emgdata(1).mfEMGchan=([3,2,1,10,9,11,13,12]);
    
     clear data
         
