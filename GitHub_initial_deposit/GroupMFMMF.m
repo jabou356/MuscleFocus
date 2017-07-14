@@ -22,6 +22,8 @@ GenericPath
 %% Path
 
 alias.matname = dir([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\']);
+alias.matname=arrayfun(@(x)(x.name),alias.matname,'UniformOutput',false);
+alias.matname=alias.matname(strncmp(alias.matname,'IRSST',5));
 
 kh=1;
 kf=1;
@@ -30,19 +32,19 @@ MuscleFocus.Fname=[];
 
 for isubject= 1: length(alias.matname)
 
-load([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\' alias.matname{isujet}]);
+load([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\' alias.matname{isubject}]);
 
 if strcmp(Data(1).sexe,'H') %if man
     
-    if kh==1 || strcmp(alias.matname{isujet}, MuscleFocus.Hname{kh-1})==0 %if it is first trial, update EMG.name
-        EMG.Hname{kh}=alias.matname{isujet};
+    if kh==1 || strcmp(alias.matname{isubject}, MuscleFocus.Hname{kh-1})==0 %if it is first trial, update MuscleFocus.name
+        MuscleFocus.Hname{kh}=alias.matname{isubject};
         kh=kh+1;
     end
     
 elseif strcmp(Data(1).sexe,'F') % if woman
     
-    if kf==1 || strcmp(alias.matname{isujet}, EMG.Fname{kf-1})==0 %if it is first trial, update EMG.name
-        EMG.Fname{kf}=alias.matname{isujet};
+    if kf==1 || strcmp(alias.matname{isubject}, MuscleFocus.Fname{kf-1})==0 %if it is first trial, update MuscleFocus.name
+        MuscleFocus.Fname{kf}=alias.matname{isubject};
         kf=kf+1;
     end
 end
@@ -54,7 +56,7 @@ kf=1;
 
 for isubject= 1: length(alias.matname)
     disp(num2str(isubject))
-load([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\' alias.matname{isujet}]);
+load([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\' alias.matname{isubject}]);
     
     if strcmp(Data(1).sexe,'H') %if man
         
