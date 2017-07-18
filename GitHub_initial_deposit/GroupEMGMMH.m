@@ -73,6 +73,10 @@ load([Path.RBIEMG, alias.matname(isubject).name]);
                 
             end
             
+             for imuscles= 1:length(Muscles)                
+                EMG.(Muscles{imuscles}).NoValidH(kh)=length(data(imuscles));
+            end
+            
         end
         kh=kh+1;
         
@@ -89,6 +93,10 @@ load([Path.RBIEMG, alias.matname(isubject).name]);
                     EMG.(Muscles{imuscles}).(CondF{icond})(:,itrial,kf)=data(trials(itrial)).emg(:,imuscles);
                 end
                 
+            end
+            
+            for imuscles= 1:length(Muscles)                
+                EMG.(Muscles{imuscles}).NoValidF(kf)=length(data(imuscles));
             end
             
         end
