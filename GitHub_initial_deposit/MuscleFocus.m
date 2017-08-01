@@ -15,7 +15,7 @@ GenericPath
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet=[length(Alias.sujet):-1:34, 32:-1:1]
+for isujet=3:-1:1
     SubjectPath
     
     Path.rbiEMG=[Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\rbiEMG\' Alias.sujet{isujet} '.mat'];

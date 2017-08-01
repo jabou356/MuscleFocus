@@ -45,3 +45,15 @@ for isubject=1:length(EMG.Hname)
 
 	end
 end
+
+for isubject=1:length(EMG.Fname)
+	for imuscle = 1:length(muscle)
+		notvalid=[];
+		for icond=1:length(condF)
+			notvalid=[notvalid;find(novalid.(muscle{imuscle}).(condF{icond})(:,2)==isubject)];
+		end
+		
+		xlswrite('E:\Projet_IRSST_LeverCaisse\ElaboratedData\GroupJB\NoValidEMG.xlsx',length(notvalid),2,[char(ExcelCol(isubject+1)), char(num2str(imuscle+1))]);
+
+	end
+end

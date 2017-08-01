@@ -27,7 +27,7 @@ GenericPath
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet=32:-1:1 %length(Alias.sujet):-1:1
+for isujet=1:-1:1
     SubjectPath
     name=Alias.sujet{isujet};
     name=name(end-3:end);

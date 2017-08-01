@@ -12,7 +12,7 @@ path.Datapath = [Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\m
 path.exportpath = [Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\MuscleFocus\GroupData\EMG\'];
 alias.matname = dir([path.Datapath '*mat']);
 
-for imat = length(alias.matname)-41 : -1 : 1
+for imat = length(alias.matname) : -1 : 1
 	% load emg data
 	load([path.Datapath alias.matname(imat).name]);
 	
@@ -27,7 +27,6 @@ for imat = length(alias.matname)-41 : -1 : 1
 		end
 		%spmEMG.comp = data.emg(:,imuscle); % by muscle
 		
-		% replace each NaN columns (muscle not recorded) by the means of other participants (same sex)
 		[idx1,comp]=clean_data(comp,imuscle,data(1).name);
 		%[idx2,comp]=clean_dataSmallEMG(comp);
 		

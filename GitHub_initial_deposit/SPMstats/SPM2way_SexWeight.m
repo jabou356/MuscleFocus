@@ -1,6 +1,6 @@
 %% SPM: Repeated measure ANOVA 3 way, 2 RM. Y is MuscleFocus
 clearvars -except MuscleFocus
-Signal='MFBlache';
+Signal='DENOMINATORBlache';
 
 CondH={'H6H2', 'H12H2'};%, 'H6H2', 'H6H3', 'H6H4', 'H6H5', 'H6H6',...
     %'H12H1', 'H12H2', 'H12H3', 'H12H4', 'H12H5', 'H12H6'};

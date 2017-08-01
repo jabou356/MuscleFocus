@@ -1,5 +1,5 @@
 clearvars -except MuscleFocus
-Signal='DENOMINATORallmuscles';
+Signal='DENOMINATORBlache';
 
 CondH={'H6H2', 'H12H2'};%, 'H6H2', 'H6H3', 'H6H4', 'H6H5', 'H6H6',...
     %'H12H1', 'H12H2', 'H12H3', 'H12H4', 'H12H5', 'H12H6'};
@@ -28,7 +28,7 @@ F2=squeeze(nanmean(MuscleFocus.(Signal).(CondF{2})(:,:,sujetF(1:npergroup)),2))'
 
 %(1) Conduct non-parametric test:
 rng(0)
-alpha      = 0.05;
+alpha      = 0.0083;
 two_tailed = true;
 iterations = min([1000, 2^npergroup]);
 snpm1       = spm1d.stats.nonparam.ttest2(H1, F1);
@@ -40,7 +40,7 @@ disp( snpmi1 )
 
 %(1) Conduct non-parametric test:
 rng(0)
-alpha      = 0.05;
+alpha      = 0.0083;
 two_tailed = true;
 iterations = min([1000, 2^npergroup]);
 snpm2       = spm1d.stats.nonparam.ttest2(H2, F2);
@@ -52,7 +52,7 @@ disp( snpmi2 )
 
 %(1) Conduct non-parametric test:
 rng(0)
-alpha      = 0.05;
+alpha      = 0.0083;
 two_tailed = true;
 iterations = min([1000, 2^npergroup]);
 snpm5       = spm1d.stats.nonparam.ttest2(H2, F1);
@@ -64,7 +64,7 @@ disp( snpmi5 )
 
 %(1) Conduct non-parametric test:
 rng(0)
-alpha      = 0.05;
+alpha      = 0.0083;
 two_tailed = true;
 iterations = min([1000, 2^npergroup]);
 snpm6       = spm1d.stats.nonparam.ttest2(H1, F2);
@@ -76,7 +76,7 @@ disp( snpmi6 )
 
 %(1) Conduct non-parametric test:
 rng(0)
-alpha      = 0.05;
+alpha      = 0.0083;
 two_tailed = true;
 iterations = min([1000, 2^npergroup]);
 snpm3       = spm1d.stats.nonparam.ttest_paired(F1, F2);
@@ -88,7 +88,7 @@ disp( snpmi3 )
 
 %(1) Conduct non-parametric test:
 rng(0)
-alpha      = 0.05;
+alpha      = 0.0083;
 two_tailed = true;
 iterations = min([1000, 2^npergroup]);
 snpm4       = spm1d.stats.nonparam.ttest_paired(H1, H2);
