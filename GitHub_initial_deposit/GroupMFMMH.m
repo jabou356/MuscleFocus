@@ -21,7 +21,7 @@ GenericPath
 
 %% Path
 
-alias.matname = dir([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\']);
+alias.matname = dir([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\COR\']);
 alias.matname=arrayfun(@(x)(x.name),alias.matname,'UniformOutput',false);
 alias.matname=alias.matname(strncmp(alias.matname,'IRSST',5));
 
@@ -32,7 +32,7 @@ MuscleFocus.Fname=[];
 
 for isubject= 1: length(alias.matname)
 
-load([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\' alias.matname{isubject}]);
+load([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\COR\' alias.matname{isubject}]);
 
 if strcmp(Data(1).sexe,'H') %if man
     
@@ -56,7 +56,7 @@ kf=1;
 
 for isubject= 1: length(alias.matname)
     disp(num2str(isubject))
-load([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\' alias.matname{isubject}]);
+load([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\MuscleFocus\COR\' alias.matname{isubject}]);
     
     if strcmp(Data(1).sexe,'H') %if man
         

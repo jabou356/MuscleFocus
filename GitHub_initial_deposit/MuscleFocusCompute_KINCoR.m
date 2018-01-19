@@ -31,9 +31,13 @@ for isujet=length(Alias.sujet):-1:1
     SubjectPath
     name=Alias.sujet{isujet};
     name=name(end-3:end);
+	
+	Path.MDpath=[Path.exportPath,'MuscleDirection\StandfordVA2'];
+    Path.MDresultpath=[Path.MDpath,'\result\'];
+    Path.MDsetuppath=[Path.MDpath,'\setup\'];
     
     %% Get location of the GH Joint center
-    MyModel=Model([Path.exportPath Alias.sujet{isujet} 'scaledNewMKR.osim']);
+    MyModel=Model([Path.ServerAddressE 'Projet_IRSST_LeverCaisse\Jason\StandfordVACoRAnatoJB.osim']);
     MyJointSet=MyModel.getJointSet;
     MyGHJoint=MyJointSet.get(param.GHJntNameOSIM);
     GHJoint=MyGHJoint.get_location;    GHJoint=[GHJoint.get(0) GHJoint.get(1) GHJoint.get(2)];

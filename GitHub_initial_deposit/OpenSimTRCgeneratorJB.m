@@ -1,7 +1,8 @@
 
 
 for trial = 1 : length(Data)
-
+    
+if sum(isnan(Data(trial).T)) == 0
 %% Variables pour la cr�ation de fichiers OpenSim
     % vecteur temporel (s)
 Data(trial).time      = (0:size(Data(trial).Qdata.Q2,2)-1)/Alias.frequency;
@@ -37,4 +38,5 @@ Data(trial).trcmat    = [round(Data(trial).frame) ; Data(trial).time ; reshape(D
 GenerateOpenSimTrcFileJB(Path.TRCpath, Data(trial).trialname,confTrc,Data(trial).trcmat);
     % Nettoyage Workspace
 %clearvars confTrc
+end
 end

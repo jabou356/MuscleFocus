@@ -23,50 +23,14 @@ writeopensim = 1;
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet = length(Alias.sujet)-1% : -1 : 1
+for isujet = 18%[23, 29, 38, 44, 45 ,47, 49] % YosC à faire (isujet = 7)  [5, 7, 18, 23, 29, 38, 44, 45 ,47, 49]
     
     disp(['Traitement de ' cell2mat(Alias.sujet(isujet)) ' (' num2str(length(Alias.sujet) - isujet+1) ' sur ' num2str(length(Alias.sujet)) ')'])
-%     %% Chemin des fichiers
-%     % Dossier du sujet
-%     Path.DirModels  = [Path.ServerAddressF '\Data\Shoulder\Lib\' Alias.sujet{isujet} 'd\Model_2\'];
-%     % Dossier du modèle pour le sujet
-%     Path.pathModel  = [Path.DirModels 'Model.s2mMod'];
-%     % Dossier des data
-%     Path.importPath = [Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\matrices\cinematique\' Alias.sujet{isujet} '.mat'];
-%     % Dossier static trial
-%     Path.importStaticPath = [Path.ServerAddressE '\Projet_Reconstructions\DATA\Romain\' Alias.sujet{isujet} 'd\MODEL2\' Alias.sujet{isujet} 'd1_MOD2.1_rightHanded_GenderH_IRSST_RomMd_.Q2'];
-%     % Dossiers d'exportation
-%     Path.exportPath = [Path.ServerAddressE '\Projet_IRSST_LeverCaisse\Jason\data\' Alias.sujet{isujet} '\'];
-%     
-%     if isdir(Path.exportPath)==0
-%         mkdir(Path.exportPath);
-%     end
-%     
-%     Path.TRCpath=[Path.exportPath,'TRC\'];
-%     if isdir(Path.TRCpath)==0
-%         mkdir(Path.TRCpath);
-%     end
-%     
-%     Path.IKpath=[Path.exportPath,'IK\'];
-%     Path.IKresultpath=[Path.IKpath,'result\'];
-%     Path.IKsetuppath=[Path.IKpath,'setup\'];
-%     if isdir(Path.IKpath)==0
-%         mkdir(Path.IKpath);
-%         mkdir(Path.IKresultpath);
-%         mkdir(Path.IKsetuppath);
-%     end
-%     
-%     Path.MDpath=[Path.exportPath,'MuscleDirection\'];
-%     Path.MDresultpath=[Path.MDpath,'result\'];
-%     Path.MDsetuppath=[Path.MDpath,'setup\'];
-%     if isdir(Path.MDpath)==0
-%         mkdir(Path.MDpath);
-%         mkdir(Path.MDresultpath);
-%         mkdir(Path.MDsetuppath);
-%     end
+% chemin des fichiers
         
 SubjectPath
 
+%Adapt the default IK path
 Path.IKpath=[Path.exportPath,'IKOSIM\StandFordVA2\'];
     Path.IKresultpath=[Path.IKpath,'result\'];
     Path.IKsetuppath=[Path.IKpath,'setup\'];
@@ -74,7 +38,8 @@ Path.IKpath=[Path.exportPath,'IKOSIM\StandFordVA2\'];
         mkdir(Path.IKpath);
         mkdir(Path.IKresultpath);
         mkdir(Path.IKsetuppath);
-    end
+	end
+	
 %     % Import reconstruction
     load(Path.importPath);
     Data=temp;
@@ -118,7 +83,7 @@ Path.IKpath=[Path.exportPath,'IKOSIM\StandFordVA2\'];
 		  for chan=1:size(q,1)
         NanQ=find(isnan(q(chan,:)));
         NoNanQ=find(isnan(q(chan,:))==0);
-        if length(NanQ)>0
+        if ~isempty(NanQ) && ~isempty(NoNanQ)
             for i=1:length(NanQ)
                 nextvalid=find(NoNanQ>NanQ(i),1,'first');
         q(chan,NanQ(i))=q(chan,NoNanQ(nextvalid));

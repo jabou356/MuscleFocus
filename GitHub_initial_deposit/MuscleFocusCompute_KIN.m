@@ -8,11 +8,13 @@ clear all; clc;
 %% Define variables
 % Body and muscles of interest. As in Blache 2015, I targeted the lines of
 % action of muscles best matching the position of the electrodes
+import org.opensim.modeling.*
+
 Body={'humerus'};
 Muscle={'DELT3','DELT2','DELT1','INFSP','SUPSP', 'SUBSC',...
     'LAT1','PECM1' };
 param.nbframe = 4000; % number frame needed (interpolation)
-param.GHJntNameOSIM={'preshoulder1'};
+param.GHJntNameOSIM={'shoulder0'};
 
 %% Interupteurs
 saveresult=1;
@@ -27,21 +29,21 @@ GenericPath
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet=32:-1:1 %length(Alias.sujet):-1:1
+for isujet=18:-1:2
     SubjectPath
     name=Alias.sujet{isujet};
     name=name(end-3:end);
 	
-	Path.MDpath=[Path.exportPath,'MuscleDirection\StandfordVA2'];
-    Path.MDresultpath=[Path.MDpath,'\result\'];
-    Path.MDsetuppath=[Path.MDpath,'\setup\'];
+	Path.MDpath=[Path.exportPath,'MuscleDirection/StandfordVA2'];
+    Path.MDresultpath=[Path.MDpath,'/result/'];
+    Path.MDsetuppath=[Path.MDpath,'/setup/'];
     
     %% Get location of the GH Joint center
-%     MyModel=Model([Path.exportPath Alias.sujet{isujet} 'scaledNewMKR.osim']);
-%     MyJointSet=MyModel.getJointSet;
-%     MyGHJoint=MyJointSet.get(param.GHJntNameOSIM);
-%     GHJoint=MyGHJoint.get_location;    GHJoint=[GHJoint.get(0) GHJoint.get(1) GHJoint.get(2)];
-    GHJoint=[0 0 0];
+	 MyModel=Model([Path.ServerAddressE 'Projet_IRSST_LeverCaisse/Jason/StandfordVACoRAnatoJB.osim']);
+    MyJointSet=MyModel.getJointSet;
+    MyGHJoint=MyJointSet.get(param.GHJntNameOSIM);
+    GHJoint=MyGHJoint.get_location;    GHJoint=[GHJoint.get(0) GHJoint.get(1) GHJoint.get(2)];
+    
     %% Load analyzed data by RM (to get trialname, condition, start and end time, Qs,
     %etc.
     load(Path.importPath);
@@ -51,20 +53,21 @@ for isujet=32:-1:1 %length(Alias.sujet):-1:1
     for itrial=1:length(data)
 		disp(['Analysing subject #' num2str(isujet) ': ' name '/ trial #' num2str(itrial)])
         
+        if exist([Path.MDpath '/result/' data(itrial).trialname '_MuscleForceDirection_vectors.sto'],'file')
         %% Load muscle path data
             
-            LineOfAction = importdata([Path.MDpath '\result\' data(itrial).trialname '_MuscleForceDirection_vectors.sto']);
-            MuscleAttachment = importdata([Path.MDpath '\result\' data(itrial).trialname '_MuscleForceDirection_attachments.sto']);
-            MuscleAttachmentAnato = importdata([Path.MDpath '\Anato\result\' data(itrial).trialname '_MuscleForceDirection_attachments.sto']);
-            LineOfActionAnato = importdata([Path.MDpath '\Anato\result\' data(itrial).trialname '_MuscleForceDirection_vectors.sto']);
+            LineOfAction = importdata([Path.MDpath '/result/' data(itrial).trialname '_MuscleForceDirection_vectors.sto']);
+            MuscleAttachment = importdata([Path.MDpath '/result/' data(itrial).trialname '_MuscleForceDirection_attachments.sto']);
+            MuscleAttachmentAnato = importdata([Path.MDpath '/Anato/result/' data(itrial).trialname '_MuscleForceDirection_attachments.sto']);
+            LineOfActionAnato = importdata([Path.MDpath '/Anato/result/' data(itrial).trialname '_MuscleForceDirection_vectors.sto']);
             
 			
 		% Manage an exception where a -1.#IND00 string is included in the .sto files (I don't know why) and interupt the importdata function
 
-			pathmd={[Path.MDpath '\result\' data(itrial).trialname '_MuscleForceDirection_vectors.sto'],...
-				[Path.MDpath '\result\' data(itrial).trialname '_MuscleForceDirection_attachments.sto'],...
-				[Path.MDpath '\Anato\result\' data(itrial).trialname '_MuscleForceDirection_attachments.sto'],...
-				[Path.MDpath '\Anato\result\' data(itrial).trialname '_MuscleForceDirection_vectors.sto']};
+			pathmd={[Path.MDpath '/result/' data(itrial).trialname '_MuscleForceDirection_vectors.sto'],...
+				[Path.MDpath '/result/' data(itrial).trialname '_MuscleForceDirection_attachments.sto'],...
+				[Path.MDpath '/Anato/result/' data(itrial).trialname '_MuscleForceDirection_attachments.sto'],...
+				[Path.MDpath '/Anato/result/' data(itrial).trialname '_MuscleForceDirection_vectors.sto']};
 			
 			variablemd={'LineOfAction', 'MuscleAttachment', 'MuscleAttachmentAnato','LineOfActionAnato'};
 
@@ -138,10 +141,10 @@ for isujet=32:-1:1 %length(Alias.sujet):-1:1
                 
                 % Calculate the vector parallel to muscle attachment and
                 % Joint rotation center (lever arm)              
-               % parallel = data(itrial).attach(:,:,imuscle)-data(itrial).GHjrc(:,:); 
+                parallel = data(itrial).attach(:,:,imuscle)-data(itrial).GHjrc(:,:); 
 			   
 		    
-        [parallel maDistance]= projPointOrth(data(itrial).attach(:,:,imuscle),...
+        [parallel maDistance]= projPointOrth(parallel,...
                                                data(itrial).vecDir(:,:,imuscle),...
                                               zeros(length(data(itrial).vecDir(:,:,imuscle)),3)); 
                 
@@ -163,6 +166,9 @@ for isujet=32:-1:1 %length(Alias.sujet):-1:1
             
             %% Interpolate the moment arms to param.nbframe from onset and offset of force on handle
             startKine = round(data(itrial).start)-1;
+            
+            if startKine == 0; startKine = 1; end
+            
             stopKine = round(data(itrial).end)-1;
             MVTdurationKine = stopKine-startKine;
             x = 1:MVTdurationKine+1; y = data(itrial).d(startKine:stopKine,:,:);
@@ -172,12 +178,14 @@ for isujet=32:-1:1 %length(Alias.sujet):-1:1
             
             clear LineOfAction MuscleAttachment EffForceDir verDir parallel temp dataColumn MVTdurationKine
         end
+        
+    end
     
 
 %    MyModel.disownAllComponents();
    
     if saveresult == 1
-    save([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\Elaborateddata\matrices\MuscleForceDir\StandfordVA2\' Alias.sujet{1,isujet} '.mat'],'data')
+    save([Path.ServerAddressE '/Projet_IRSST_LeverCaisse/Elaborateddata/matrices/MuscleForceDir/StandfordVA2/COR/' Alias.sujet{1,isujet} '.mat'],'data')
     end
     
     clear MyModel MyJointSet MyGHJoint GHJoint data 

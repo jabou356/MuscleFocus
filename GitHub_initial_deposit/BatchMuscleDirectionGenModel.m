@@ -23,7 +23,7 @@ writeopensim = 1;
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet = 18   : -1 : 1
+for isujet = 18
     
     disp(['Traitement de ' cell2mat(Alias.sujet(isujet)) ' (' num2str(length(Alias.sujet) - isujet+1) ' sur ' num2str(length(Alias.sujet)) ')'])
 %     %% Chemin des fichiers
@@ -32,8 +32,8 @@ SubjectPath
 Path.IKpath=[Path.exportPath,'IKOSIM\StandfordVA2\'];
     Path.IKresultpath=[Path.IKpath,'result\'];
     Path.IKsetuppath=[Path.IKpath,'setup\'];
-    if isdir(Path.IKpath)==0
-        mkdir(Path.IKpath);
+    if isdir(Path.IKresultpath)==0
+%         mkdir(Path.IKpath);
         mkdir(Path.IKresultpath);
         mkdir(Path.IKsetuppath);
     end
