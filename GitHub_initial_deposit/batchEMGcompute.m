@@ -12,7 +12,7 @@ path.Datapath = [Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\m
 path.exportpath = [Path.ServerAddressE '\Projet_IRSST_LeverCaisse\ElaboratedData\MuscleFocus\GroupData\EMG\'];
 alias.matname = dir([path.Datapath '*mat']);
 
-for imat = length(alias.matname) : -1 : 1
+for imat = 19%length(alias.matname) : -1 : 1
 	% load emg data
 	load([path.Datapath alias.matname(imat).name]);
 	
