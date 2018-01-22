@@ -31,6 +31,7 @@ if useold == 0
         %% for each weight, average all 3 trials from hip to eye (height 2)
         poids =[6, 12 ,18];
         for ipoids = 1:3
+            GroupData.poids((imat-1)*39 + (ipoids-1)*13 + 1:(imat-1)*39 + (ipoids-1)*13 + 13) = poids(ipoids);
          
             if ipoids ~=3 || data(1).sex == 1 % si c'est 6 kg ou 12 kg, ou 18kg man
                 
