@@ -27,13 +27,18 @@ if useold == 0
         GroupData.sex((imat-1)*39+1:imat*39) = deal(data(1).sex)';
         GroupData.name((imat-1)*39+1:imat*39) = deal({data(1).name})';
         GroupData.muscle((imat-1)*39+1:imat*39) = repmat(Muscles,1,3);
+        GroupData.SID((imat-1)*39+1:imat*39) = imat;
         
         %% for each weight, average all 3 trials from hip to eye (height 2)
         poids =[6, 12 ,18];
         for ipoids = 1:3
             GroupData.poids((imat-1)*39 + (ipoids-1)*13 + 1:(imat-1)*39 + (ipoids-1)*13 + 13) = poids(ipoids);
          
-            if ipoids ~=3 || data(1).sex == 1 % si c'est 6 kg ou 12 kg, ou 18kg man
+            if ipoids == 3 && data(1).sex == 2 % women 18 kg doesn't exist
+                
+                GroupData.emg((imat-1)*39+(ipoids-1)*13 +1:(imat-1)*39+(ipoids-1)*13 +13,1:4000) = nan;
+                
+            else% si c'est 6 kg ou 12 kg, ou 18kg man
                 
                 trials = find(arrayfun(@(x)(x.poids == poids(ipoids)),data) & arrayfun(@(x)(x.hauteur == 2),data));
                 temp = [data(trials).emg];
@@ -42,9 +47,7 @@ if useold == 0
                     emgdata = temp(:,imuscle:13:end)';
                     GroupData.emg((imat-1)*39 + (ipoids-1)*13 + imuscle,:) = nanmean(emgdata);
                 end
-            else % women 18 kg doesn't exist
-                
-                GroupData.emg((imat-1)*39+1:imat*39,:) = nan;
+           
             end
             
         end
