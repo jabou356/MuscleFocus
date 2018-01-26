@@ -2,7 +2,7 @@ Muscles={'DeltA', 'DeltM', 'DeltP', 'BB', 'TB', 'UpTrap',...
     'LowTrap', 'SerrAnt', 'Supra', 'Infra', 'SubScap',...
     'Pect', 'Lat'};
 
-for imuscle=1:length(Muscles)
+for imuscle=2:length(Muscles)
 flag = strcmp(GroupData.muscle,Muscles{imuscle}) & ...
     (GroupData.poids == 6 | GroupData.poids ==12) &...
     ~isnan(GroupData.emg(:,1))';
@@ -32,9 +32,41 @@ rng(0)     %set the random number generator seed
 alpha      = 0.05;
 iterations = 10000;
 FFn        = spm1d.stats.nonparam.anova2onerm(Y, A, B, SUBJ);
-FFni.(Muscles{imuscle}) = FFn.inference(alpha, 'iterations', iterations);
-disp_summ(FFni.(Muscles{imuscle}))
+FFni = FFn.inference(alpha, 'iterations', iterations);
+disp_summ(FFni)
+
+ANOVA.(Muscles{imuscle}).Y=Y;
+ANOVA.(Muscles{imuscle}).A=A;
+ANOVA.(Muscles{imuscle}).B=B;
+ANOVA.(Muscles{imuscle}).SUBJ=SUBJ;
+ANOVA.(Muscles{imuscle}).iterations = iterations;
+ANOVA.(Muscles{imuscle}).alpha = alpha;
+
+ANOVA.(Muscles{imuscle}).MainA.nClusters = FFni.SPMs{1, 1}.nClusters;
+ANOVA.(Muscles{imuscle}).MainA.clusters = FFni.SPMs{1, 1}.clusters;
+ANOVA.(Muscles{imuscle}).MainA.z = FFni.SPMs{1, 1}.z;
+ANOVA.(Muscles{imuscle}).MainA.zstar = FFni.SPMs{1, 1}.zstar;
+ANOVA.(Muscles{imuscle}).MainA.Stat = FFni.SPMs{1, 1}.STAT;
+
+ANOVA.(Muscles{imuscle}).MainB.nClusters = FFni.SPMs{1, 2}.nClusters;
+ANOVA.(Muscles{imuscle}).MainB.clusters = FFni.SPMs{1, 2}.clusters;
+ANOVA.(Muscles{imuscle}).MainB.z = FFni.SPMs{1, 2}.z;
+ANOVA.(Muscles{imuscle}).MainB.zstar = FFni.SPMs{1, 2}.zstar;
+ANOVA.(Muscles{imuscle}).MainB.Stat = FFni.SPMs{1, 2}.STAT;
+
+ANOVA.(Muscles{imuscle}).IntAB.nClusters = FFni.SPMs{1, 3}.nClusters;
+ANOVA.(Muscles{imuscle}).IntAB.clusters = FFni.SPMs{1, 3}.clusters;
+ANOVA.(Muscles{imuscle}).IntAB.z = FFni.SPMs{1, 3}.z;
+ANOVA.(Muscles{imuscle}).IntAB.zstar = FFni.SPMs{1, 3}.zstar;
+ANOVA.(Muscles{imuscle}).IntAB.Stat = FFni.SPMs{1, 3}.STAT;
+
+
+clearvars -except Muscles GroupData ANOVA
+
+
 end
+
+%save(['ANOVA',Muscles{imuscle}],'FFni');
 
 % 
 % 
