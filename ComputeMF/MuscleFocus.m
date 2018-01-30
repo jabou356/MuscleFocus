@@ -9,7 +9,7 @@ GenericPath
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet=18%length(Alias.sujet):-1:1
+for isujet=length(Alias.sujet)-1:-1:1
     SubjectPath
     
     Path.rbiEMG=[Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/rbiEMG/' Alias.sujet{isujet} '.mat'];
@@ -50,15 +50,19 @@ for isujet=18%length(Alias.sujet):-1:1
     Data(itrial).NUMERATORBlache=sqrt(sum(temp.^2,2));
     Data(itrial).DENOMINATORBlache=sum(Data(itrial).denominator(:,[1,2,3,7,8]),2);
     Data(itrial).MFBlache=Data(itrial).NUMERATORBlache./Data(itrial).DENOMINATORBlache;
-    Data(itrial).sexe=kindata(itrial).sexe;
+    
+    Data(itrial).sex=emgdata(itrial).sex;
+    Data(itrial).poids=emgdata(itrial).poids;
+    Data(itrial).hauteur=emgdata(itrial).hauteur;
+    Data(itrial).name = emgdata(itrial).name;
+
     Data(itrial).trialname=kindata(itrial).trialname;
     
    end
    end
     
    
-     Path.MuscleFocus=[Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/MuscleFocus/COR/' Alias.sujet{isujet} '.mat'];
-     save(Path.MuscleFocus, 'Data', 'Alias');
+    save([Path.MF, Alias.sujet{isujet}, '.mat'], 'Data', 'Alias');
 end
 
     
