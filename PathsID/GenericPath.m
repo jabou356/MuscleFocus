@@ -25,7 +25,7 @@ Path.ServerAddressF(regexp(Path.ServerAddressF,'\'))='/';
     
     %% Setup common paths
     Path.OpensimSetupJB=[Path.ServerAddressE '/Projet_IRSST_LeverCaisse/Jason/OpenSimSetUpFiles/'];
-    Path.OpensimGenericModel=[Path.OpensimSetupJB,'GenericShoulderCoRAnatoJB.osim'];
+    Path.OpensimGenericModel=[Path.OpensimSetupJB,'Wu_Shoulder_Model_adapted.osim'];
     Path.OpensimGenericScale=[Path.OpensimSetupJB,'Conf_scaling.xml'];
     Path.OpensimGenericIK=[Path.OpensimSetupJB,'Conf_IK.xml'];
     Path.OpensimGenericMD=[Path.OpensimSetupJB,'Conf_MD.xml'];

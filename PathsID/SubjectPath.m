@@ -21,7 +21,7 @@
         mkdir(Path.TRCpath);
     end
     
-    Path.IKpath=[Path.exportPath,'IKOSIM/'];
+    Path.IKpath=[Path.exportPath,'IKOSIM/Wu/'];
     Path.IKresultpath=[Path.IKpath,'result/'];
     Path.IKsetuppath=[Path.IKpath,'setup/'];
     if isdir(Path.IKpath)==0
@@ -30,7 +30,7 @@
         mkdir(Path.IKsetuppath);
     end
     
-    Path.MDpath=[Path.exportPath,'MuscleDirection/'];
+    Path.MDpath=[Path.exportPath,'MuscleDirection/Wu/'];
     Path.MDresultpath=[Path.MDpath,'result/'];
     Path.MDsetuppath=[Path.MDpath,'setup/'];
     if isdir(Path.MDpath)==0
