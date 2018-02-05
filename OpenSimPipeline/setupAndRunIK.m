@@ -31,7 +31,7 @@ import org.opensim.modeling.*
  ikTool = InverseKinematicsTool(Path.OpensimGenericIK);
 
 % Load the model and initialize
-model = Model([Path.exportPath Alias.sujet{isujet} 'WuScaled.osim']);
+model = Model([Path.exportPath Alias.sujet{isujet} 'WuNewMKR.osim']);
 model.initSystem();
 
 % Tell Tool to use the loaded model
@@ -70,7 +70,11 @@ for trial= 1:nTrials
     ikTool.print([Path.IKsetuppath outfile]);
     
     fprintf(['Performing IK on cycle # ' num2str(trial) '\n']);
-    % Run IK
+    % Run IK and save errors
+	diary([Path.IKsetuppath name '_out.log'])
+	diary on
     ikTool.run();
+	diary off
 
+	clc
 end

@@ -23,8 +23,8 @@ writeopensim = 1;
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet = length(Alias.sujet%[23, 29, 38, 44, 45 ,47, 49] % YosC à faire (isujet = 7)  [5, 7, 18, 23, 29, 38, 44, 45 ,47, 49]
-    
+for isujet = length(Alias.sujet):-1:1%[23, 29, 38, 44, 45 ,47, 49] % YosC à faire (isujet = 7)  [5, 7, 18, 23, 29, 38, 44, 45 ,47, 49]
+     
     disp(['Traitement de ' cell2mat(Alias.sujet(isujet)) ' (' num2str(length(Alias.sujet) - isujet+1) ' sur ' num2str(length(Alias.sujet)) ')'])
 % chemin des fichiers
         
