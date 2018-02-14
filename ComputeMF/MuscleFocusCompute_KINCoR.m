@@ -10,9 +10,9 @@ clear all; clc;
 % action of muscles best matching the position of the electrodes
 Body={'humerus'};
 Muscle={'DELT3','DELT2','DELT1','INFSP','SUPSP', 'SUBSC',...
-    'LAT1','PECM1' };
+    'LAT','PECM1' };
 param.nbframe = 4000; % number frame needed (interpolation)
-param.GHJntNameOSIM={'preshoulder1'};
+param.GHJntNameOSIM={'GHJ'};
 
 %% Interupteurs
 saveresult=1;
@@ -32,12 +32,9 @@ for isujet=length(Alias.sujet):-1:1
     name=Alias.sujet{isujet};
     name=name(end-3:end);
 	
-	Path.MDpath=[Path.exportPath,'MuscleDirection\StandfordVA2'];
-    Path.MDresultpath=[Path.MDpath,'\result\'];
-    Path.MDsetuppath=[Path.MDpath,'\setup\'];
-    
+
     %% Get location of the GH Joint center
-    MyModel=Model([Path.ServerAddressE 'Projet_IRSST_LeverCaisse\Jason\StandfordVACoRAnatoJB.osim']);
+    MyModel=Model(Path.OpensimGenericModel);
     MyJointSet=MyModel.getJointSet;
     MyGHJoint=MyJointSet.get(param.GHJntNameOSIM);
     GHJoint=MyGHJoint.get_location;    GHJoint=[GHJoint.get(0) GHJoint.get(1) GHJoint.get(2)];
@@ -52,12 +49,12 @@ for isujet=length(Alias.sujet):-1:1
 		disp(['Analysing subject #' num2str(isujet) ': ' name '/ trial #' num2str(itrial)])
         
         %% Load muscle path data
-        if exist([Path.MDresultpath data(itrial).trialname '.mot_MuscleForceDirection_vectors.sto'],'file')==2
+        if exist([Path.MDresultpath data(itrial).trialname '_MuscleForceDirection_vectors.sto'],'file')==2
             
-            LineOfAction = importdata([Path.MDresultpath data(itrial).trialname '.mot_MuscleForceDirection_vectors.sto']);
-            MuscleAttachment = importdata([Path.MDresultpath data(itrial).trialname '.mot_MuscleForceDirection_attachments.sto']);
-            MuscleAttachmentAnato = importdata([Path.MDpath 'Anato\result\' data(itrial).trialname '.mot_MuscleForceDirection_attachments.sto']);
-            LineOfActionAnato = importdata([Path.MDpath 'Anato\result\' data(itrial).trialname '.mot_MuscleForceDirection_vectors.sto']);
+            LineOfAction = importdata([Path.MDresultpath data(itrial).trialname '_MuscleForceDirection_vectors.sto']);
+            MuscleAttachment = importdata([Path.MDresultpath data(itrial).trialname '_MuscleForceDirection_attachments.sto']);
+            MuscleAttachmentAnato = importdata([Path.MDpath 'Anato\result\' data(itrial).trialname '_MuscleForceDirection_attachments.sto']);
+            LineOfActionAnato = importdata([Path.MDpath 'Anato\result\' data(itrial).trialname '_MuscleForceDirection_vectors.sto']);
             
             %% Compute leverArm
             for imuscle = 1:length(Muscle) % for each muscle
@@ -122,7 +119,7 @@ for isujet=length(Alias.sujet):-1:1
     MyModel.disownAllComponents();
    
     if saveresult == 1
-    save([Path.ServerAddressE '\Projet_IRSST_LeverCaisse\Elaborateddata\matrices\MuscleForceDir\' Alias.sujet{1,isujet} '.mat'],'data')
+    save([Path.ServerAddressE '/Projet_IRSST_LeverCaisse/Elaborateddata/matrices/MuscleForceDir/Wu/' Alias.sujet{1,isujet} '.mat'],'data')
     end
     
     clear MyModel MyJointSet MyGHJoint GHJoint data 

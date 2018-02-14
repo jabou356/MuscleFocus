@@ -9,7 +9,7 @@ GenericPath
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet=length(Alias.sujet)-1:-1:1
+for isujet=length(Alias.sujet)
     SubjectPath
     
     Path.rbiEMG=[Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/rbiEMG/' Alias.sujet{isujet} '.mat'];
@@ -19,7 +19,7 @@ for isujet=length(Alias.sujet)-1:-1:1
    
     clear data
         
-    load([Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/MuscleForceDir/StandfordVA2/COR/' Alias.sujet{isujet} '.mat'])
+    load([Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/MuscleForceDir/Wu/' Alias.sujet{isujet} '.mat'])
     kindata=data;
     clear data
     
@@ -45,6 +45,11 @@ for isujet=length(Alias.sujet)-1:-1:1
     Data(itrial).NUMERATORallmuscles=sqrt(sum(temp.^2,2));
     Data(itrial).DENOMINATORallmuscles=sum(Data(itrial).denominator,2);
     Data(itrial).MFallmuscles=Data(itrial).NUMERATORallmuscles./Data(itrial).DENOMINATORallmuscles;
+	
+	temp=sum(Data(itrial).numerator(:,:,[1,2,3,4,5,6]),3);
+    Data(itrial).NUMERATORrotator=sqrt(sum(temp.^2,2));
+    Data(itrial).DENOMINATORrotator=sum(Data(itrial).denominator(:,[1,2,3,4,5,6]),2);
+    Data(itrial).MFrotator=Data(itrial).NUMERATORrotator./Data(itrial).DENOMINATORrotator;
     
     temp=sum(Data(itrial).numerator(:,:,[1,2,3,7,8]),3);
     Data(itrial).NUMERATORBlache=sqrt(sum(temp.^2,2));

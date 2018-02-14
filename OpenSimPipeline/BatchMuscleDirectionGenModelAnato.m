@@ -23,25 +23,18 @@ writeopensim = 1;
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet = 18
+for isujet = length(Alias.sujet):-1:1
     
     disp(['Traitement de ' cell2mat(Alias.sujet(isujet)) ' (' num2str(length(Alias.sujet) - isujet+1) ' sur ' num2str(length(Alias.sujet)) ')'])
 %     %% Chemin des fichiers
 SubjectPath
  
-Path.IKpath=[Path.exportPath,'IKOSIM\StandfordVA2\'];
-    Path.IKresultpath=[Path.IKpath,'result\'];
-    Path.IKsetuppath=[Path.IKpath,'setup\'];
-    if isdir(Path.IKpath)==0
-        mkdir(Ptah.IKpath);
-        mkdir(Path.IKresultpath);
-        mkdir(Path.IKsetuppath);
-    end
+
 
 
  Path.OpensimGenericMD=[Path.OpensimSetupJB,'Conf_MDAnato.xml'];
 
-Path.MDpath=[Path.exportPath,'MuscleDirection\StandfordVA2\Anato'];
+Path.MDpath=[Path.MDpath,'Anato'];
     Path.MDresultpath=[Path.MDpath,'\result\'];
     Path.MDsetuppath=[Path.MDpath,'\setup\'];
     if isdir(Path.MDpath)==0

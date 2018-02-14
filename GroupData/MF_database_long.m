@@ -2,7 +2,7 @@
 %_____________________________________________________________________________
 clear; close all; clc
 
-Variables={'MFBlache', 'DENOMINATORBlache', 'MFallmuscles', 'DENOMINATORallmuscles'};
+Variables={'MFBlache', 'DENOMINATORBlache', 'MFallmuscles', 'DENOMINATORallmuscles', 'DENOMINATORrotator', 'MFrotator'};
 %% Switch
 useold = 0;
 %% load Path and subjects

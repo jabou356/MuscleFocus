@@ -23,29 +23,11 @@ writeopensim = 1;
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet = 18
+for isujet = length(Alias.sujet):-1:1
     
     disp(['Traitement de ' cell2mat(Alias.sujet(isujet)) ' (' num2str(length(Alias.sujet) - isujet+1) ' sur ' num2str(length(Alias.sujet)) ')'])
 %     %% Chemin des fichiers
 SubjectPath
-   
-Path.IKpath=[Path.exportPath,'IKOSIM\StandfordVA2\'];
-    Path.IKresultpath=[Path.IKpath,'result\'];
-    Path.IKsetuppath=[Path.IKpath,'setup\'];
-    if isdir(Path.IKresultpath)==0
-%         mkdir(Path.IKpath);
-        mkdir(Path.IKresultpath);
-        mkdir(Path.IKsetuppath);
-    end
-
-Path.MDpath=[Path.exportPath,'MuscleDirection\StandfordVA2'];
-    Path.MDresultpath=[Path.MDpath,'\result\'];
-    Path.MDsetuppath=[Path.MDpath,'\setup\'];
-    if isdir(Path.MDresultpath)==0
-%         mkdir(Path.MDpath);
-        mkdir(Path.MDresultpath);
-        mkdir(Path.MDsetuppath);
-    end
    
     setupAndRunMuscleDirectionGenModel
    

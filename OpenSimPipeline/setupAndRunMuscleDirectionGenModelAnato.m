@@ -24,7 +24,7 @@ import org.opensim.modeling.*
 
 
 %% Get and operate on the files
-model = Model([Path.ServerAddressE 'Projet_IRSST_LeverCaisse\Jason\StandfordVACoRAnatoJB.osim']);
+model = Model(Path.OpensimGenericModel);;
 model.initSystem();
 model.LoadOpenSimLibrary('C:\OpenSim 3.3\plugins\MuscleForceDirection.dll')
 

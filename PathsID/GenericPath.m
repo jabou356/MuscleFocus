@@ -32,6 +32,6 @@ Path.ServerAddressF(regexp(Path.ServerAddressF,'\'))='/';
     
     %% Path Elaborated data
     Path.RBIEMG = [Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/rbiEMG/'];
-    Path.MF = [Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/MuscleFocus/COR/'];
+    Path.MF = [Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/MuscleFocus/Wu/'];
     Path.GroupEMG = [Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/MuscleFocus/GroupData/EMG/'];
     

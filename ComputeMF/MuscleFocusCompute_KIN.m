@@ -12,9 +12,9 @@ import org.opensim.modeling.*
 
 Body={'humerus'};
 Muscle={'DELT3','DELT2','DELT1','INFSP','SUPSP', 'SUBSC',...
-    'LAT1','PECM1' };
+    'LAT','PECM1' };
 param.nbframe = 4000; % number frame needed (interpolation)
-param.GHJntNameOSIM={'shoulder0'};
+param.GHJntNameOSIM={'GHJ'};
 
 %% Interupteurs
 saveresult=1;
@@ -23,24 +23,20 @@ saveresult=1;
 %% Chargement des Path génériques
 GenericPath
 
-%% Chargement des fonctions Opensim 
-% import org.opensim.modeling.*
+
 
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet=18:-1:2
+for isujet=length(Alias.sujet):-1:1
     SubjectPath
     name=Alias.sujet{isujet};
     name=name(end-3:end);
 	
-	Path.MDpath=[Path.exportPath,'MuscleDirection/StandfordVA2'];
-    Path.MDresultpath=[Path.MDpath,'/result/'];
-    Path.MDsetuppath=[Path.MDpath,'/setup/'];
+	
     
     %% Get location of the GH Joint center
-	 MyModel=Model([Path.ServerAddressE 'Projet_IRSST_LeverCaisse/Jason/StandfordVACoRAnatoJB.osim']);
-    MyJointSet=MyModel.getJointSet;
+	MyModel=Model(Path.OpensimGenericModel);    MyJointSet=MyModel.getJointSet;
     MyGHJoint=MyJointSet.get(param.GHJntNameOSIM);
     GHJoint=MyGHJoint.get_location;    GHJoint=[GHJoint.get(0) GHJoint.get(1) GHJoint.get(2)];
     
@@ -185,7 +181,7 @@ for isujet=18:-1:2
 %    MyModel.disownAllComponents();
    
     if saveresult == 1
-    save([Path.ServerAddressE '/Projet_IRSST_LeverCaisse/Elaborateddata/matrices/MuscleForceDir/StandfordVA2/COR/' Alias.sujet{1,isujet} '.mat'],'data')
+    save([Path.ServerAddressE '/Projet_IRSST_LeverCaisse/Elaborateddata/matrices/MuscleForceDir/Wu/' Alias.sujet{1,isujet} '.mat'],'data')
     end
     
     clear MyModel MyJointSet MyGHJoint GHJoint data 
