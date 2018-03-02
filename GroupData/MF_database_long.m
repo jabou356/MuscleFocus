@@ -3,6 +3,7 @@
 clear; close all; clc
 
 Variables={'MFBlache', 'DENOMINATORBlache', 'MFallmuscles', 'DENOMINATORallmuscles', 'DENOMINATORrotator', 'MFrotator'};
+
 %% Switch
 useold = 0;
 %% load Path and subjects
@@ -22,29 +23,29 @@ if useold == 0
         disp(['Traitement de ' Data(1).name ' (' num2str(length(alias.matname) - imat+1) ' sur ' num2str(length(alias.matname)) ')'])
         
         %% Build the group  matrix: 12 lines per subject: 3 weight (18kg = nan for women) * 4 variables)
-        GroupData.sex((imat-1)*12+1:imat*12) = deal(Data(1).sex)';
-        GroupData.name((imat-1)*12+1:imat*12) = deal({Data(1).name})';
+        GroupData.sex((imat-1)*18+1:imat*18) = deal(Data(1).sex)';
+        GroupData.name((imat-1)*18+1:imat*18) = deal({Data(1).name})';
         %GroupData.muscle((imat-1)*12+1:imat*12) = repmat(Muscles,1,3);
-        GroupData.SID((imat-1)*12+1:imat*12) = imat;
+        GroupData.SID((imat-1)*18+1:imat*18) = imat;
         
         %% for each weight, average all 3 trials from hip to eye (height 2)
         poids =[6, 12 ,18];
         for ipoids = 1:3
             
-            for ivar=1:4
-            GroupData.poids((imat-1)*12 + (ipoids-1)*4 +ivar) = poids(ipoids);
-            GroupData.variable((imat-1)*12 + (ipoids-1)*4 + ivar) = Variables(ivar);
+            for ivar=1:length(Variables)
+            GroupData.poids((imat-1)*18 + (ipoids-1)*6 +ivar) = poids(ipoids);
+            GroupData.variable((imat-1)*18 + (ipoids-1)*6 + ivar) = Variables(ivar);
          
             if ipoids == 3 && Data(1).sex == 2 % women 18 kg doesn't exist
                 
-                GroupData.MFdata((imat-1)*12+(ipoids-1)*4 +ivar,1:4000) = nan;
+                GroupData.MFdata((imat-1)*18+(ipoids-1)*6 +ivar,1:4000) = nan;
                 
             else% si c'est 6 kg ou 12 kg, ou 18kg man
                 
                 trials = find(arrayfun(@(x)(x.poids == poids(ipoids)),Data) & arrayfun(@(x)(x.hauteur == 2),Data));
                 temp = [Data(trials).(Variables{ivar})]';
                 
-                GroupData.MFdata((imat-1)*12 + (ipoids-1)*4 + ivar,:) = nanmean(temp);
+                GroupData.MFdata((imat-1)*18 + (ipoids-1)*6 + ivar,:) = nanmean(temp);
                 
            
             end
