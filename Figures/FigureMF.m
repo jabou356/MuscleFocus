@@ -3,11 +3,13 @@ close all
 figure('Units', 'centimeters','Position', [1.5, 1, 16.5, 8.8]);
 
 Variables={'MFBlache', 'DENOMINATORBlache'};
+BadSubj={'YosC', 'VicJ', 'DapO', 'IneA', 'MarA', 'SarC', 'BenL' };
 
 
 
 flag = (GroupData.poids == 6 | GroupData.poids ==12) &...
-    ~isnan(GroupData.MFdata(:,1))' & ismember(GroupData.variable,Variables);
+    ~isnan(GroupData.MFdata(:,1))' & ismember(GroupData.variable,Variables) ...
+    & ~ismember(GroupData.name,BadSubj);
 
    
 % Generate figure for SRM with Confidence interval
@@ -24,7 +26,7 @@ g(1,1).set_text_options('font','Arial');
 g(1,1).axe_property('XLim',[0 4000]); 
 
 g.draw;
-g.export('file_name','MFplots','export_path','C:\Users\jaybo\Desktop','file_type','pdf');
+%g.export('file_name','MFplots032018jb','file_type','pdf');
 
 figure('Units', 'centimeters','Position', [1.5, 1, 16.5, 4.4]);
 
@@ -43,4 +45,4 @@ g(1,1).axe_property('XLim',[0 100]);
 
 
 g.draw;
-g.export('file_name','BOXplots','export_path','C:\Users\jaybo\Desktop','file_type','pdf');
+g.export('file_name','BOXplotsjb','file_type','pdf');

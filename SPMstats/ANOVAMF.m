@@ -1,9 +1,11 @@
-Variables={'MFBlache', 'DENOMINATORBlache', 'MFallmuscles', 'DENOMINATORallmuscles'};
+Variables={'MFBlache', 'DENOMINATORBlache', 'MFrotator', 'DENOMINATORrotator'};
+BadSubj={'YosC', 'VicJ'};
+
 
 for ivar=1:length(Variables)
 flag = strcmp(GroupData.variable,Variables{ivar}) & ...
     (GroupData.poids == 6 | GroupData.poids ==12) &...
-    ~isnan(GroupData.MFdata(:,1))';
+    ~isnan(GroupData.MFdata(:,1))' &  ~ismember(GroupData.name,BadSubj);
 
 Y = GroupData.MFdata(flag,:);
 A = GroupData.sex(flag);
@@ -59,7 +61,7 @@ ANOVA.(Variables{ivar}).IntAB.zstar = FFni.SPMs{1, 3}.zstar;
 ANOVA.(Variables{ivar}).IntAB.Stat = FFni.SPMs{1, 3}.STAT;
 
 
-clearvars -except Variables GroupData ANOVA
+clearvars -except Variables GroupData ANOVA BadSubj
 
 
 end

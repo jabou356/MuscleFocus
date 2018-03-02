@@ -1,6 +1,6 @@
 clearvars -except ANOVA
 
-Variables={'MFBlache', 'DENOMINATORBlache', 'MFallmuscles', 'DENOMINATORallmuscles'};
+Variables={'MFBlache', 'DENOMINATORBlache', 'MFrotator', 'DENOMINATORrotator'};
 
 
 for ivar=1:length(Variables)
