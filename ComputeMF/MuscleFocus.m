@@ -9,7 +9,7 @@ GenericPath
 %% Nom des sujets
 Alias.sujet = sujets_validesJB(Path.ServerAddressE);
 
-for isujet=length(Alias.sujet)
+for isujet=length(Alias.sujet):-1:1
     SubjectPath
     
     Path.rbiEMG=[Path.ServerAddressE '/Projet_IRSST_LeverCaisse/ElaboratedData/matrices/rbiEMG/' Alias.sujet{isujet} '.mat'];
@@ -55,6 +55,11 @@ for isujet=length(Alias.sujet)
     Data(itrial).NUMERATORBlache=sqrt(sum(temp.^2,2));
     Data(itrial).DENOMINATORBlache=sum(Data(itrial).denominator(:,[1,2,3,7,8]),2);
     Data(itrial).MFBlache=Data(itrial).NUMERATORBlache./Data(itrial).DENOMINATORBlache;
+    
+    temp=sum(Data(itrial).numerator(:,:,[1,2,3]),3);
+    Data(itrial).NUMERATORdelt=sqrt(sum(temp.^2,2));
+    Data(itrial).DENOMINATORdelt=sum(Data(itrial).denominator(:,[1,2,3]),2);
+    Data(itrial).MFdelt=Data(itrial).NUMERATORdelt./Data(itrial).DENOMINATORdelt;
     
     Data(itrial).sex=emgdata(itrial).sex;
     Data(itrial).poids=emgdata(itrial).poids;

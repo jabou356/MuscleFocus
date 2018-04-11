@@ -1,11 +1,19 @@
-Variables={'MFBlache', 'DENOMINATORBlache', 'MFrotator', 'DENOMINATORrotator'};
-BadSubj={'YosC', 'VicJ'};
+%Variables={'MFBlache', 'DENOMINATORBlache', 'MFrotator', 'DENOMINATORrotator'};
+%BadSubj={'YosC', 'VicJ', 'MarA', 'GatB' };
 
+Variables={'MFBlache', 'DENOMINATORBlache', 'MFallmuscles', 'DENOMINATORallmuscles', 'DENOMINATORrotator', 'MFrotator','DENOMINATORdelt', 'MFdelt'};
+BadSubj={'YosC', 'VicJ', 'MarA', 'GatB'};
 
 for ivar=1:length(Variables)
+    if strncmp(Variables{ivar},'MF',2)
 flag = strcmp(GroupData.variable,Variables{ivar}) & ...
     (GroupData.poids == 6 | GroupData.poids ==12) &...
     ~isnan(GroupData.MFdata(:,1))' &  ~ismember(GroupData.name,BadSubj);
+    else
+        flag = strcmp(GroupData.variable,Variables{ivar}) & ...
+    (GroupData.poids == 6 | GroupData.poids ==12) &...
+    ~isnan(GroupData.MFdata(:,1))'
+    end
 
 Y = GroupData.MFdata(flag,:);
 A = GroupData.sex(flag);
@@ -65,3 +73,5 @@ clearvars -except Variables GroupData ANOVA BadSubj
 
 
 end
+
+
