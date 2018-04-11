@@ -2,8 +2,7 @@ close all
 clearvars -except ANOVA
 figure('Units', 'centimeters','Position', [1.5, 1, 16.5, 17.6]);
 
-Variables={'MFBlache', 'DENOMINATORBlache'};
-
+Variables={'MFallmuscles', 'DENOMINATORallmuscles'};
 
 for ivar=1:length(Variables)
     toplot.variable((ivar*3)-2:(ivar*3))=deal(Variables(ivar));
