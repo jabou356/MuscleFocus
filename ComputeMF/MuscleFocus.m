@@ -26,19 +26,19 @@ for isujet=length(Alias.sujet):-1:1
     for itrial=1:length(emgdata)
     disp(['Analysing subject #' num2str(isujet) ': ' Alias.sujet{isujet} '/ trial #' num2str(itrial)])
 
-   if length(kindata(itrial).dInt)>0 && length(emgdata(itrial).emg)>0
+   if length(kindata(itrial).dInt)>0 && length(emgdata(itrial).Normemg)>0
     
        for imuscle=1:length(emgdata(1).mfEMGchan)
        
         chan=emgdata(1).mfEMGchan(imuscle);
 		
-		if emgdata(itrial).emg(1,chan)==0
-		emgdata(itrial).emg(:,chan)=nan;
+		if emgdata(itrial).Normemg(1,chan)==0
+		emgdata(itrial).Normemg(:,chan)=nan;
 		end
 	
-    Data(itrial).numerator(:,:,imuscle)=repmat(emgdata(itrial).emg(:,chan),1,3).*kindata(itrial).dInt(:,:,imuscle);
+    Data(itrial).numerator(:,:,imuscle)=repmat(emgdata(itrial).Normemg(:,chan),1,3).*kindata(itrial).dInt(:,:,imuscle);
 	
-    Data(itrial).denominator(:,imuscle)=emgdata(itrial).emg(:,chan);
+    Data(itrial).denominator(:,imuscle)=emgdata(itrial).Normemg(:,chan);
     end
     
     temp=sum(Data(itrial).numerator,3);
